@@ -20,6 +20,7 @@
       --radius: 18px;
       --max: 1200px;
       --section-pad: clamp(56px, 7vw, 96px);
+      --placeholder-gradient: linear-gradient(135deg, #363032 0%, #1f1b1c 55%, #141112 100%);
     }
 
     * { box-sizing: border-box; }
@@ -148,7 +149,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, min(42vw, 400px));
+      grid-template-columns: minmax(0, 1fr) minmax(260px, min(46vw, 500px));
       gap: clamp(32px, 5vw, 52px);
       align-items: center;
     }
@@ -183,16 +184,17 @@
     }
 
     .hero-points {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin-top: 2px;
-      align-items: start;
-      /* Keeps the 3 mini-cards from stretching too wide */
+      align-items: flex-start;
       max-width: 540px;
     }
 
     .hero-point {
+      width: fit-content;
+      max-width: 100%;
       background: white;
       border: 1px solid var(--line);
       padding: 10px 12px;
@@ -219,22 +221,21 @@
 
     .hero-photo {
       width: 100%;
-      max-width: 400px;
+      max-width: 500px;
     }
 
     .hero-photo-inner {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9;
       border-radius: 16px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(var(--secondary-rgb), 0.45);
       box-shadow:
-        0 4px 24px rgba(var(--secondary-rgb), 0.1),
-        0 12px 40px rgba(23, 147, 209, 0.12);
-      background:
-        linear-gradient(135deg, rgba(23, 147, 209, 0.12), rgba(255, 255, 255, 0.32));
+        0 4px 24px rgba(0, 0, 0, 0.22),
+        0 12px 40px rgba(0, 0, 0, 0.18);
+      background: var(--placeholder-gradient);
       display: grid;
       place-items: center;
-      color: rgba(var(--secondary-rgb), 0.55);
+      color: rgba(255, 255, 255, 0.72);
       font-weight: 700;
       font-size: 0.88rem;
       letter-spacing: 0.06em;
@@ -271,6 +272,12 @@
       border-top-left-radius: var(--radius);
       transform: skewX(-24deg);
       transform-origin: left;
+    }
+
+    .problem-card {
+      min-height: clamp(176px, 18vw, 240px);
+      padding-top: 28px;
+      padding-bottom: 32px;
     }
 
     .problem-card p,
@@ -326,6 +333,25 @@
       text-align: left;
     }
 
+    .choice-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--placeholder-gradient);
+      border: 1px solid rgba(var(--secondary-rgb), 0.28);
+      box-shadow: var(--shadow-sm);
+      margin: 0 0 14px;
+    }
+
+    .choice-thumb > div {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      background-size: cover;
+      background-position: center;
+    }
+
     .choice-card .list {
       flex: 1 1 auto;
       margin-bottom: 0;
@@ -338,7 +364,7 @@
 
     /* Make the choice cards visually shorter without affecting other sections */
     .choice-card .list {
-      margin-top: 10px;
+      margin-top: 0;
       gap: 8px;
     }
 
@@ -363,7 +389,7 @@
       top: 10px;
       width: 8px;
       height: 8px;
-      background: var(--primary);
+      background: rgba(var(--secondary-rgb), 0.45);
       transform: skewX(-20deg);
     }
 
@@ -377,9 +403,8 @@
     .video-placeholder {
       min-height: 360px;
       border-radius: 22px;
-      border: 2px dashed rgba(23, 147, 209, 0.35);
-      background:
-        linear-gradient(135deg, rgba(23,147,209,0.08), rgba(255,255,255,0.8));
+      border: 2px dashed rgba(var(--secondary-rgb), 0.35);
+      background: var(--placeholder-gradient);
       display: grid;
       place-items: center;
       text-align: center;
@@ -389,12 +414,26 @@
       overflow: hidden;
     }
 
+    .video-placeholder > div {
+      position: relative;
+      z-index: 1;
+    }
+
+    .video-placeholder h3 {
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.96);
+    }
+
+    .video-placeholder .small-muted {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
     .video-placeholder::after {
       content: "";
       position: absolute;
       width: 140px;
       height: 140px;
-      background: rgba(23,147,209,0.12);
+      background: rgba(255, 255, 255, 0.06);
       transform: skewX(-20deg) rotate(15deg);
       right: -24px;
       top: -30px;
@@ -404,13 +443,14 @@
       width: 76px;
       height: 76px;
       border-radius: 50%;
-      background: var(--primary);
-      color: white;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
       display: grid;
       place-items: center;
       font-size: 1.4rem;
       margin: 0 auto 16px;
-      box-shadow: var(--shadow-sm);
+      box-shadow: none;
     }
 
     .product-grid {
@@ -433,24 +473,6 @@
       margin-top: auto;
     }
 
-    .product-image {
-      aspect-ratio: 4 / 3;
-      border-radius: 16px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #e9f6fd, #ffffff);
-      border: 1px solid var(--line);
-      transform: skewX(-6deg);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .product-image > div {
-      width: 100%;
-      height: 100%;
-      transform: skewX(6deg) scale(1.08);
-      background-size: cover;
-      background-position: center;
-    }
-
     .pill-row {
       display: flex;
       flex-wrap: wrap;
@@ -471,11 +493,16 @@
       background: linear-gradient(180deg, #ffffff 0%, #f8fbfe 100%);
     }
 
-    .workflow-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
+    .workflow .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .cta-wrap {
       margin-top: 28px;
+      width: 100%;
+      max-width: 72ch;
     }
 
     .step {
@@ -501,6 +528,13 @@
       transform: skewX(-12deg);
     }
 
+    .step-num svg {
+      width: 24px;
+      height: 24px;
+      transform: skewX(12deg);
+      display: block;
+    }
+
     .trust-band {
       background: var(--secondary);
       color: white;
@@ -515,28 +549,58 @@
     .trust-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 20px;
+      gap: 18px;
       margin-top: 28px;
     }
 
     .trust-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 18px;
       padding: 22px;
-      box-shadow: none;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+      transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
     }
 
-    .trust-card p { color: rgba(255,255,255,0.72); }
+    .trust-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(158,215,242,0.35);
+      background: rgba(255,255,255,0.075);
+    }
+
+    .trust-card h3 {
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+      font-size: 1.05rem;
+      line-height: 1.15;
+      color: rgba(255,255,255,0.96);
+    }
+
+    .trust-card p {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.74);
+    }
     .trust-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(23,147,209,0.16);
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       display: grid;
       place-items: center;
-      margin-bottom: 14px;
-      font-size: 1.2rem;
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+      color: #fff;
+      font-variant-emoji: text;
+    }
+
+    .trust-icon svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+      flex-shrink: 0;
     }
 
     .faq-wrap {
@@ -547,7 +611,7 @@
 
     .faq-item {
       background: var(--surface);
-      border: 1px solid var(--line);
+      border: 1px solid rgba(var(--secondary-rgb), 0.22);
       border-radius: 18px;
       overflow: hidden;
       box-shadow: var(--shadow-sm);
@@ -571,7 +635,8 @@
     .faq-q span:last-child {
       font-size: 1.3rem;
       line-height: 1;
-      color: var(--primary);
+      color: rgba(var(--secondary-rgb), 0.55);
+      font-weight: 700;
     }
 
     .faq-a {
@@ -581,13 +646,31 @@
 
     .faq-item.active .faq-a { display: block; }
 
+    .faq-help {
+      margin-top: 22px;
+      text-align: right;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .faq-help a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .faq-help a:hover {
+      color: var(--secondary);
+    }
+
     @media (max-width: 1080px) {
       .hero-grid,
       .split,
       .grid-3,
       .grid-4,
       .product-grid,
-      .workflow-grid,
       .trust-grid,
       .grid-2 {
         grid-template-columns: 1fr 1fr;
@@ -604,11 +687,10 @@
       .grid-3,
       .grid-4,
       .product-grid,
-      .workflow-grid,
       .trust-grid,
       .grid-2 { grid-template-columns: 1fr; }
 
-      .hero-points { grid-template-columns: 1fr; }
+      .hero-points { flex-direction: column; align-items: stretch; }
       .hero-text { max-width: none; }
       .hero-visual-wrap { justify-content: center; }
       .hero-photo { max-width: 100%; }
@@ -676,15 +758,15 @@
         <div class="grid-3" style="margin-top: 28px;">
           <article class="card problem-card">
             <h3>Weak Bonds Cause Rework</h3>
-            <p>When the adhesive does not match the material or pace of the job, callbacks and failures follow.</p>
+            <p>Mismatched adhesive leads to rework and callbacks.</p>
           </article>
           <article class="card problem-card">
             <h3>Mess Slows Finishing</h3>
-            <p>Excess squeeze-out and poor control mean more cleanup, sanding, and wasted time at the bench.</p>
+            <p>Squeeze-out and poor control add cleanup, sanding, and bench time.</p>
           </article>
           <article class="card problem-card">
             <h3>Wrong Cure Time Disrupts Flow</h3>
-            <p>Some jobs need instant hold. Others need more working time. The right match keeps production moving.</p>
+            <p>Pick the right hold time—instant or open—so production stays moving.</p>
           </article>
         </div>
       </div>
@@ -695,7 +777,7 @@
         <div class="eyebrow"><span>Choose by Workflow</span></div>
         <h2>Pick the Right Adhesive for the Job</h2>
         <p class="small-muted" style="max-width: 72ch; margin-bottom: 26px;">
-          Instead of forcing one product for every application, guide buyers toward the adhesive family that fits how they build, repair, or assemble.
+          Guide buyers to the right adhesive family for how they build, repair, or assemble.
         </p>
 
         <div class="grid-3 grid-3-stretch">
@@ -703,10 +785,11 @@
             <div class="choice-top">
               <h3>CA Glue + Activator</h3>
             </div>
+            <div class="choice-thumb" aria-hidden="true"><div></div></div>
             <ul class="list">
-              <li>Great for fast repairs and small bonding surfaces</li>
+              <li>Fast repairs and small bond lines</li>
               <li>Minimal clamping time</li>
-              <li>Useful when throughput matters most</li>
+              <li>Ideal for high-throughput work</li>
             </ul>
             <div class="btn-row">
               <a class="btn btn-primary" href="#products">Shop This Solution</a>
@@ -717,10 +800,11 @@
             <div class="choice-top">
               <h3>Epoxy Systems</h3>
             </div>
+            <div class="choice-thumb" aria-hidden="true"><div></div></div>
             <ul class="list">
-              <li>Strong option for demanding joins</li>
-              <li>Helpful when surfaces are imperfect</li>
-              <li>Better control where instant set is not ideal</li>
+              <li>Strong for demanding joints</li>
+              <li>Great for imperfect surfaces</li>
+              <li>Better when instant set isn't ideal</li>
             </ul>
             <div class="btn-row">
               <a class="btn btn-primary" href="#products">Shop This Solution</a>
@@ -731,10 +815,11 @@
             <div class="choice-top">
               <h3>PUR Adhesives</h3>
             </div>
+            <div class="choice-thumb" aria-hidden="true"><div></div></div>
             <ul class="list">
-              <li>Suited to larger surface applications</li>
-              <li>Supports a more solution-based system approach</li>
-              <li>Ideal for shops that need repeatable results</li>
+              <li>For large surface bonds</li>
+              <li>Workflow-driven system choice</li>
+              <li>Repeatable, consistent results</li>
             </ul>
             <div class="btn-row">
               <a class="btn btn-primary" href="#products">Shop This Solution</a>
@@ -750,20 +835,20 @@
           <div class="eyebrow"><span>Use Case Demo</span></div>
           <h2>Show the Journey, Not Just the SKU</h2>
           <p class="small-muted">
-            This section is designed as a placeholder for a future application video or process animation. For now, it still works as a visual break that reinforces the idea of guided buying.
+            Placeholder for an application video or process animation. Until then, it's a visual break for guided buying.
           </p>
           <ul class="list">
-            <li>Use this area later for a short workshop demo</li>
-            <li>Could show prep, application, clamp, and finish</li>
-            <li>Supports paid traffic that needs quick trust signals</li>
+            <li>Swap in a short workshop demo</li>
+            <li>Show prep, apply, clamp, then finish</li>
+            <li>Gives paid traffic a quick trust signal</li>
           </ul>
         </div>
         <div class="video-placeholder">
           <div>
             <div class="play">▶</div>
-            <h3 style="margin-bottom: 8px;">Video Placeholder</h3>
+            <h3>Video Placeholder</h3>
             <p class="small-muted" style="max-width: 32ch; margin: 0 auto;">
-              Replace with short process video, product demo, or workshop application sequence.
+              Replace with a short process video or demo.
             </p>
           </div>
         </div>
@@ -775,45 +860,42 @@
         <div class="eyebrow"><span>Product Collection</span></div>
         <h2>Curated Solutions for Woodworking Shops</h2>
         <p class="small-muted" style="max-width: 72ch;">
-          Three curated picks aligned to common shop workflows—fast assembly, structural strength, and large-surface bonding—so buyers can decide without wading through a long catalog.
+          Three picks mapped to fast assembly, structural strength, and large-surface bonding—no long catalog.
         </p>
 
         <div class="product-grid">
           <article class="card product-card">
-            <div class="product-image"><div></div></div>
             <div class="pill-row">
               <span class="pill">Fast Set</span>
               <span class="pill">Quick Repairs</span>
             </div>
             <div>
               <h3>Fast Set Wood Bond Kit</h3>
-              <p>Ideal for trim work, quick repair jobs, and fast hold applications with CA glue and activator.</p>
+              <p>For trim, quick repairs, and fast CA/activator holds.</p>
             </div>
             <div class="btn-row"><a class="btn btn-primary" href="#products">Shop Now</a></div>
           </article>
 
           <article class="card product-card">
-            <div class="product-image"><div></div></div>
             <div class="pill-row">
               <span class="pill">High Strength</span>
               <span class="pill">Gap Filling</span>
             </div>
             <div>
               <h3>Structural Join Epoxy System</h3>
-              <p>Built for stronger joins where bond performance matters more than instant set speed.</p>
+              <p>For joints where strength matters more than instant set.</p>
             </div>
             <div class="btn-row"><a class="btn btn-primary" href="#products">Shop Now</a></div>
           </article>
 
           <article class="card product-card">
-            <div class="product-image"><div></div></div>
             <div class="pill-row">
               <span class="pill">Large Surfaces</span>
               <span class="pill">Cabinet Panels</span>
             </div>
             <div>
               <h3>Cabinet Panel PUR Solution</h3>
-              <p>For panel work and larger surface bonding where consistency and coverage are a better fit.</p>
+              <p>For panels and large bonds where coverage matters.</p>
             </div>
             <div class="btn-row"><a class="btn btn-primary" href="#products">Shop Now</a></div>
           </article>
@@ -823,26 +905,23 @@
 
     <section class="section workflow">
       <div class="container">
-        <div class="eyebrow"><span>How It Works</span></div>
-        <h2>From Prep to Finish in Three Steps</h2>
+        <div class="eyebrow"><span>Still Deciding?</span></div>
+        <h2>Still Not Sure? Contact Us Directly</h2>
         <p class="small-muted" style="max-width: 72ch;">
-          A simple path your team can follow: choose the right chemistry, apply with control, and move into finishing with confidence.
+          Our team can help you match the right adhesive to your materials, workflow, and finish schedule.
         </p>
-        <div class="workflow-grid">
+        <div class="cta-wrap">
           <article class="step">
-            <div class="step-num">1</div>
-            <h3>Match the Job</h3>
-            <p>Select CA, epoxy, or PUR based on bond area, cure time, and strength your assembly needs.</p>
-          </article>
-          <article class="step">
-            <div class="step-num">2</div>
-            <h3>Apply with Control</h3>
-            <p>Use the right amount and technique to limit squeeze-out and keep surfaces clean for stain or paint.</p>
-          </article>
-          <article class="step">
-            <div class="step-num">3</div>
-            <h3>Finish Faster</h3>
-            <p>Move to sanding and finishing sooner with bonds you can trust and less rework at the bench.</p>
+            <div class="step-num" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-1.38C9.57 21.5 1.5 13.43 1.5 4.5Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3>Prefer a Phone Call?</h3>
+            <p>Tell us about your application and production needs—we will point you in the right direction.</p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="tel:+18005550199" aria-label="Call us at (800) 555-0199">Call (800) 555-0199</a>
+            </div>
           </article>
         </div>
       </div>
@@ -854,24 +933,28 @@
         <h2>Why Shops Trust a System Approach</h2>
         <div class="trust-grid">
           <article class="trust-card">
-            <div class="trust-icon">✓</div>
-            <h3>Consistent Supply</h3>
-            <p>Products and bundles aligned with how cabinet and millwork shops actually run day to day.</p>
+            <div class="trust-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                <path d="M12 2c-1.8 3.2-5 5.5-5 10.5 0 2.2.8 4.1 2.2 5.5H11v-1.2c0-2.3 1.9-4.1 4.2-4.1 2.2 0 4 1.7 4.1 3.9l.1 1.4h1.6c1.4-1.4 2.2-3.3 2.2-5.5 0-5-3.2-7.3-5-10.5z" />
+              </svg>
+            </div>
+            <h3>Made In Canada</h3>
+            <p>Manufactured in Canada—quality you can trust.</p>
           </article>
           <article class="trust-card">
-            <div class="trust-icon">◆</div>
+            <div class="trust-icon" aria-hidden="true">&#9670;</div>
             <h3>Clear Choices</h3>
-            <p>Fewer SKUs to second-guess—guidance by workflow instead of endless product hunting.</p>
+            <p>Workflow-first guidance cuts SKU hunting and speeds up the decision.</p>
           </article>
           <article class="trust-card">
-            <div class="trust-icon">⚙</div>
+            <div class="trust-icon" aria-hidden="true">&#x2699;&#xFE0E;</div>
             <h3>Shop-Ready</h3>
-            <p>Formulations and formats suited to benches, panels, trim, and repair work in real shops.</p>
+            <p>Bench-ready for panels, trim, and repairs—built for shop pace.</p>
           </article>
           <article class="trust-card">
-            <div class="trust-icon">→</div>
+            <div class="trust-icon" aria-hidden="true">&#8594;</div>
             <h3>Room to Scale</h3>
-            <p>From starter kits to volume options when production ramps up.</p>
+            <p>Start small, scale to volume as production ramps.</p>
           </article>
         </div>
       </div>
@@ -882,7 +965,7 @@
         <div class="eyebrow"><span>FAQ</span></div>
         <h2>Common Questions</h2>
         <p class="small-muted" style="max-width: 72ch; margin-bottom: 0;">
-          Quick answers about choosing adhesives for woodworking and cabinetry. Tap a question to expand.
+          Answers for choosing adhesives for woodworking and cabinetry. Tap to expand.
         </p>
         <div class="faq-wrap">
           <div class="faq-item">
@@ -892,7 +975,7 @@
             </button>
             <div class="faq-a">
               <p>
-                Match the adhesive to bond size, open time, and strength. CA is ideal for small areas and fast hold; epoxy suits gap filling and higher-strength joints; PUR works well for larger surfaces and panel-style applications. If you are unsure, start with the workflow cards above and pick the family that fits how you build.
+                Match by bond size, open time, and strength. CA is best for small areas and fast hold; epoxy for gap filling and high-strength joints; PUR for larger surfaces and panels. Not sure? Start with the workflow cards above.
               </p>
             </div>
           </div>
@@ -903,7 +986,7 @@
             </button>
             <div class="faq-a">
               <p>
-                Controlling squeeze-out and following the product’s cure guidance helps protect stain, paint, and clear coats. Always test compatibility on scrap when trying a new adhesive with a specific finish system.
+                Control squeeze-out and follow cure guidance to protect stain, paint, and clear coats. Test on scrap when pairing a new adhesive with your finish system.
               </p>
             </div>
           </div>
@@ -914,7 +997,7 @@
             </button>
             <div class="faq-a">
               <p>
-                Yes—production-oriented options are listed in the product collection for shops that reorder regularly. Browse the product cards above when you are ready to purchase, or ask your rep about recurring supply.
+                Yes. Production-oriented options are in the product collection for regular reorders. Ask your rep about recurring supply if needed.
               </p>
             </div>
           </div>
@@ -925,11 +1008,14 @@
             </button>
             <div class="faq-a">
               <p>
-                Use the solutions section to narrow by workflow first, then match to a product card. For edge cases—unusual substrates or environmental conditions—contact CEC with details about your application.
+                Narrow by workflow in the solutions section, then match a product card. For edge cases (substrates or environment), contact CEC with your details.
               </p>
             </div>
           </div>
         </div>
+        <p class="faq-help">
+          <a href="/contact" aria-label="Contact customer service">Still questions? Talk to our expert!</a>
+        </p>
       </div>
     </section>
   </main>
