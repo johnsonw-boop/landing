@@ -413,7 +413,8 @@
     .choice-carousel {
       position: relative;
       margin-top: 28px;
-      padding: 0 52px;
+      /* No horizontal padding: arrows are absolutely positioned and must not inset the track (keeps cards aligned with heading). */
+      padding: 0;
     }
 
     .choice-carousel-viewport {
@@ -467,18 +468,14 @@
     }
 
     .choice-carousel-prev {
-      left: 0;
+      left: 8px;
     }
 
     .choice-carousel-next {
-      right: 0;
+      right: 8px;
     }
 
     @media (max-width: 880px) {
-      .choice-carousel {
-        padding: 0 44px;
-      }
-
       .choice-carousel .choice-card {
         flex: 0 0 calc(100% - 0px);
         max-width: 100%;
