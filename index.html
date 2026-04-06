@@ -7,14 +7,16 @@
   <style>
     :root {
       --primary: #1793D1;
+      /* Charcoal secondary — rgb(36, 31, 33) */
       --secondary: #241f21;
+      --secondary-rgb: 36, 31, 33;
       --bg: #f6f8fb;
       --surface: #ffffff;
-      --text: #241f21;
+      --text: var(--secondary);
       --muted: #667085;
       --line: #d9e2ec;
-      --shadow: 12px 12px 0 rgba(36, 31, 33, 0.14);
-      --shadow-sm: 8px 8px 0 rgba(36, 31, 33, 0.1);
+      --shadow: 12px 12px 0 rgba(var(--secondary-rgb), 0.14);
+      --shadow-sm: 8px 8px 0 rgba(var(--secondary-rgb), 0.1);
       --radius: 18px;
       --max: 1200px;
       --section-pad: clamp(56px, 7vw, 96px);
@@ -39,18 +41,18 @@
     h1 {
       font-size: clamp(2.5rem, 6vw, 5rem);
       line-height: 0.95;
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     h2 {
       font-size: clamp(1.85rem, 3vw, 3rem);
       line-height: 1.02;
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     h3 {
       font-size: 1.1rem;
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     p { margin: 0 0 14px; }
@@ -69,12 +71,14 @@
 
     .eyebrow {
       display: inline-block;
+      width: fit-content;
+      max-width: 100%;
       padding: 8px 12px;
       background: rgba(23, 147, 209, 0.1);
       color: var(--primary);
       border: 1px solid rgba(23, 147, 209, 0.2);
       font-weight: 700;
-      text-transform: uppercase;
+      text-transform: none;
       letter-spacing: 0.08em;
       font-size: 0.76rem;
       margin-bottom: 18px;
@@ -95,7 +99,7 @@
       justify-content: center;
       gap: 10px;
       padding: 15px 22px;
-      border-radius: 999px;
+      border-radius: 16px;
       font-weight: 700;
       transition: 0.25s ease;
       border: 2px solid transparent;
@@ -120,30 +124,33 @@
     }
 
     .hero {
-      padding: clamp(32px, 5vw, 56px) 0 clamp(40px, 6vw, 64px);
+      padding: clamp(40px, 6vw, 72px) 0 clamp(48px, 7vw, 88px);
       background: linear-gradient(
-        180deg,
-        #e8f2f9 0%,
-        #eef5fb 45%,
-        #f4f7fb 100%
+        165deg,
+        #cfe8f5 0%,
+        #e0f0f9 28%,
+        #e8f4fb 55%,
+        #dde4ec 100%
       );
+      border-bottom: 1px solid rgba(23, 147, 209, 0.18);
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.65);
       overflow: hidden;
     }
 
     .section-hero-follow {
       background: linear-gradient(
         180deg,
-        #f8f9fb 0%,
-        #f2f4f8 55%,
-        #eef0f4 100%
+        #fafbfc 0%,
+        #f3f5f8 45%,
+        #ebecef 100%
       );
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.95fr);
-      gap: clamp(28px, 5vw, 56px);
-      align-items: start;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, min(42vw, 400px));
+      gap: clamp(32px, 5vw, 52px);
+      align-items: center;
     }
 
     .hero-text {
@@ -155,6 +162,7 @@
 
     .hero .eyebrow {
       margin-bottom: 0;
+      align-self: flex-start;
     }
 
     .hero h1 {
@@ -177,95 +185,61 @@
     .hero-points {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 4px;
+      gap: 8px;
+      margin-top: 2px;
+      align-items: start;
+      /* Keeps the 3 mini-cards from stretching too wide */
+      max-width: 540px;
     }
 
     .hero-point {
       background: white;
       border: 1px solid var(--line);
-      padding: 14px 14px 15px;
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm);
+      padding: 10px 12px;
+      border-radius: 10px;
+      box-shadow: 4px 4px 0 rgba(var(--secondary-rgb), 0.06);
     }
 
     .hero-point strong {
       display: block;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      margin: 0;
       color: var(--text);
-    }
-
-    .hero-point .small-muted {
-      font-size: 0.88rem;
-      line-height: 1.35;
-      display: block;
+      line-height: 1.25;
     }
 
     .hero-visual-wrap {
       position: relative;
-      min-height: 530px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-height: 0;
     }
 
-    .slant-card,
-    .slant-float {
-      position: absolute;
-      overflow: hidden;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.4);
-      background: linear-gradient(180deg, #ddeef7, #c3e3f3);
-      box-shadow: var(--shadow);
-    }
-
-    .slant-card {
-      inset: 24px 0 24px 42px;
-      transform: skewX(-8deg) rotate(-4deg);
-    }
-
-    .slant-card > div,
-    .slant-float > div {
-      transform: skewX(8deg) rotate(4deg) scale(1.08);
+    .hero-photo {
       width: 100%;
-      height: 100%;
+      max-width: 400px;
+    }
+
+    .hero-photo-inner {
+      aspect-ratio: 4 / 3;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow:
+        0 4px 24px rgba(var(--secondary-rgb), 0.1),
+        0 12px 40px rgba(23, 147, 209, 0.12);
+      background:
+        linear-gradient(135deg, rgba(23, 147, 209, 0.12), rgba(255, 255, 255, 0.32));
       display: grid;
       place-items: center;
-      color: rgba(36, 31, 33, 0.6);
+      color: rgba(var(--secondary-rgb), 0.55);
       font-weight: 700;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background:
-        linear-gradient(135deg, rgba(23,147,209,0.18), rgba(255,255,255,0.28)),
-        url('https://images.unsplash.com/photo-1513467655676-561b7d489a88?auto=format&fit=crop&w=1200&q=80') center/cover;
-    }
-
-    .slant-float {
-      right: 10px;
-      bottom: 10px;
-      width: 220px;
-      height: 140px;
-      transform: skewX(-10deg) rotate(5deg);
-      border: 6px solid #fff;
-    }
-
-    .slant-float > div {
-      background:
-        linear-gradient(135deg, rgba(23,147,209,0.14), rgba(255,255,255,0.12)),
-        url('https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80') center/cover;
-      font-size: 0.8rem;
-    }
-
-    .shape-accent {
-      position: absolute;
-      top: 6%;
-      right: -40px;
-      width: 140px;
-      height: 80px;
-      background: var(--secondary);
-      transform: skewX(-28deg) rotate(8deg);
-      opacity: 0.08;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-align: center;
+      padding: 16px;
     }
 
     .grid-3, .grid-4, .grid-2 {
@@ -317,16 +291,39 @@
       padding-top: 0;
     }
 
+    /* Accent lives in-flow on .choice-top so it never overlaps the heading (skewed .card::before did) */
+    .choice-card.card::before {
+      display: none;
+    }
+
     .choice-top {
       flex-shrink: 0;
-      margin: -24px -24px 20px;
-      padding: 26px 24px 18px 92px;
+      margin: -24px -24px 16px;
+      /* Space below the skewed accent bar so the heading never collides with it */
+      padding: 30px 24px 14px 24px;
       background: linear-gradient(135deg, rgba(23,147,209,0.12), rgba(23,147,209,0.03));
       border-bottom: 1px solid var(--line);
+      text-align: left;
+      position: relative;
+    }
+
+    .choice-top::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 72px;
+      height: 8px;
+      background: var(--primary);
+      border-top-left-radius: var(--radius);
+      transform: skewX(-24deg);
+      transform-origin: left;
+      pointer-events: none;
     }
 
     .choice-top h3 {
-      margin-top: 0;
+      margin: 0;
+      text-align: left;
     }
 
     .choice-card .list {
@@ -336,7 +333,13 @@
 
     .choice-card .btn-row {
       margin-top: auto;
-      padding-top: 22px;
+      padding-top: 16px;
+    }
+
+    /* Make the choice cards visually shorter without affecting other sections */
+    .choice-card .list {
+      margin-top: 10px;
+      gap: 8px;
     }
 
     .list {
@@ -415,12 +418,19 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
       margin-top: 28px;
+      align-items: stretch;
     }
 
     .product-card {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .product-card .btn-row {
+      margin-top: auto;
     }
 
     .product-image {
@@ -588,8 +598,6 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-visual-wrap { min-height: 440px; }
-      .slant-card { inset: 20px 20px 20px 20px; }
     }
 
     @media (max-width: 720px) {
@@ -602,9 +610,8 @@
 
       .hero-points { grid-template-columns: 1fr; }
       .hero-text { max-width: none; }
-      .hero-visual-wrap { min-height: 330px; }
-      .slant-card { inset: 12px; }
-      .slant-float { width: 150px; height: 100px; }
+      .hero-visual-wrap { justify-content: center; }
+      .hero-photo { max-width: 100%; }
       .btn-row { flex-direction: column; align-items: stretch; }
       .btn { width: 100%; }
       .section { padding: 56px 0; }
@@ -641,24 +648,21 @@
             <div class="hero-points">
               <div class="hero-point">
                 <strong>Faster assembly</strong>
-                <span class="small-muted">Cure time aligned with your line.</span>
               </div>
               <div class="hero-point">
                 <strong>Cleaner application</strong>
-                <span class="small-muted">Less squeeze-out and cleanup.</span>
               </div>
               <div class="hero-point">
                 <strong>Better fit</strong>
-                <span class="small-muted">The right chemistry for the job.</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="hero-visual-wrap" aria-label="Woodworking imagery placeholder">
-          <div class="shape-accent"></div>
-          <div class="slant-card"><div>Application Image Placeholder</div></div>
-          <div class="slant-float"><div>Shop / Bench Detail</div></div>
+        <div class="hero-visual-wrap" aria-label="Woodworking application imagery">
+          <div class="hero-photo">
+            <div class="hero-photo-inner">Application image placeholder</div>
+          </div>
         </div>
       </div>
     </div>
@@ -698,7 +702,6 @@
           <article class="card choice-card">
             <div class="choice-top">
               <h3>CA Glue + Activator</h3>
-              <p class="small-muted">For quick hold, small parts, trim work, and jobs where speed matters.</p>
             </div>
             <ul class="list">
               <li>Great for fast repairs and small bonding surfaces</li>
@@ -713,7 +716,6 @@
           <article class="card choice-card">
             <div class="choice-top">
               <h3>Epoxy Systems</h3>
-              <p class="small-muted">For tougher joints, gap filling, and applications where higher build strength matters.</p>
             </div>
             <ul class="list">
               <li>Strong option for demanding joins</li>
@@ -728,7 +730,6 @@
           <article class="card choice-card">
             <div class="choice-top">
               <h3>PUR Adhesives</h3>
-              <p class="small-muted">For cabinetry, panels, and larger bonding areas where long-term hold and coverage matter.</p>
             </div>
             <ul class="list">
               <li>Suited to larger surface applications</li>
@@ -779,7 +780,7 @@
 
         <div class="product-grid">
           <article class="card product-card">
-            <div class="product-image"><div style="background-image: linear-gradient(135deg, rgba(23,147,209,0.12), rgba(255,255,255,0.1)), url('https://images.unsplash.com/photo-1581092160607-ee22731f8b9d?auto=format&fit=crop&w=1000&q=80');"></div></div>
+            <div class="product-image"><div></div></div>
             <div class="pill-row">
               <span class="pill">Fast Set</span>
               <span class="pill">Quick Repairs</span>
@@ -792,7 +793,7 @@
           </article>
 
           <article class="card product-card">
-            <div class="product-image"><div style="background-image: linear-gradient(135deg, rgba(23,147,209,0.12), rgba(255,255,255,0.1)), url('https://images.unsplash.com/photo-1513467655676-561b7d489a88?auto=format&fit=crop&w=1000&q=80');"></div></div>
+            <div class="product-image"><div></div></div>
             <div class="pill-row">
               <span class="pill">High Strength</span>
               <span class="pill">Gap Filling</span>
@@ -805,7 +806,7 @@
           </article>
 
           <article class="card product-card">
-            <div class="product-image"><div style="background-image: linear-gradient(135deg, rgba(23,147,209,0.12), rgba(255,255,255,0.1)), url('https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=1000&q=80');"></div></div>
+            <div class="product-image"><div></div></div>
             <div class="pill-row">
               <span class="pill">Large Surfaces</span>
               <span class="pill">Cabinet Panels</span>
