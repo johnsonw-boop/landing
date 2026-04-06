@@ -225,6 +225,7 @@
     }
 
     .hero-photo-inner {
+      position: relative;
       aspect-ratio: 16 / 9;
       border-radius: 16px;
       overflow: hidden;
@@ -232,15 +233,18 @@
       box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.22),
         0 12px 40px rgba(0, 0, 0, 0.18);
-      background: var(--placeholder-gradient);
-      display: grid;
-      place-items: center;
-      color: rgba(255, 255, 255, 0.72);
-      font-weight: 700;
-      font-size: 0.88rem;
-      letter-spacing: 0.06em;
-      text-align: center;
-      padding: 16px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-photo-inner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     .grid-3, .grid-4, .grid-2 {
@@ -274,16 +278,37 @@
       transform-origin: left;
     }
 
-    .problem-card {
-      min-height: clamp(176px, 18vw, 240px);
+    .use-case-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
       padding-top: 28px;
       padding-bottom: 32px;
     }
 
-    .problem-card p,
+    .use-case-card h4 {
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .use-case-card .list {
+      margin-top: 0;
+      margin-bottom: 0;
+      flex: 1 1 auto;
+    }
+
+    .use-cases-intro {
+      margin-top: 10px;
+      max-width: min(100%, 70rem);
+    }
+
     .small-muted,
     .faq-item p,
-    .product-card p,
     .step p,
     .trust-card p {
       color: var(--muted);
@@ -453,56 +478,38 @@
       box-shadow: none;
     }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-      margin-top: 28px;
-      align-items: stretch;
-    }
-
-    .product-card {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      height: 100%;
-      min-height: 0;
-    }
-
-    .product-card .btn-row {
-      margin-top: auto;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .pill {
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: #eef6fb;
-      border: 1px solid #d6eaf6;
-      color: #0e6e9d;
-      font-size: 0.84rem;
-      font-weight: 700;
-    }
-
     .workflow {
       background: linear-gradient(180deg, #ffffff 0%, #f8fbfe 100%);
     }
 
-    .workflow .container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    .workflow-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(28px, 4vw, 52px);
+      align-items: center;
+    }
+
+    .workflow-copy {
+      max-width: 38rem;
+    }
+
+    .workflow-copy .small-muted {
+      margin-bottom: 0;
+      max-width: 42ch;
     }
 
     .cta-wrap {
-      margin-top: 28px;
+      margin: 0;
       width: 100%;
-      max-width: 72ch;
+      max-width: none;
+    }
+
+    .workflow .step {
+      height: 100%;
+    }
+
+    .workflow .step .btn-row {
+      margin-top: 22px;
     }
 
     .step {
@@ -665,12 +672,26 @@
       color: var(--secondary);
     }
 
+    @media (max-width: 880px) {
+      .workflow-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .workflow-copy {
+        max-width: none;
+      }
+
+      .workflow-copy .small-muted {
+        max-width: none;
+      }
+    }
+
     @media (max-width: 1080px) {
       .hero-grid,
       .split,
       .grid-3,
       .grid-4,
-      .product-grid,
       .trust-grid,
       .grid-2 {
         grid-template-columns: 1fr 1fr;
@@ -686,7 +707,6 @@
     @media (max-width: 720px) {
       .grid-3,
       .grid-4,
-      .product-grid,
       .trust-grid,
       .grid-2 { grid-template-columns: 1fr; }
 
@@ -743,7 +763,16 @@
 
         <div class="hero-visual-wrap" aria-label="Woodworking application imagery">
           <div class="hero-photo">
-            <div class="hero-photo-inner">Application image placeholder</div>
+            <div class="hero-photo-inner">
+              <img
+                src="images/hero-woodshop.png"
+                alt="Custom carved wooden sign reading Grandpa's Wood Shop, leaning against a tree outdoors"
+                width="1200"
+                height="675"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -753,20 +782,35 @@
   <main>
     <section class="section section-hero-follow">
       <div class="container">
-        <div class="eyebrow"><span>Why Shops Switch</span></div>
-        <h2>Less Guesswork. Better Results.</h2>
-        <div class="grid-3" style="margin-top: 28px;">
-          <article class="card problem-card">
-            <h3>Weak Bonds Cause Rework</h3>
-            <p>Mismatched adhesive leads to rework and callbacks.</p>
+        <div class="eyebrow"><span>Use cases</span></div>
+        <h2>Start From the Job</h2>
+        <p class="small-muted use-cases-intro">
+          Our product line is built for woodworking and cabinetry applications—from bench repairs to production runs. Each card starts from a real situation, then what that bond must deliver, so you can line up the right CEC solution.
+        </p>
+        <div class="grid-3 grid-3-stretch" style="margin-top: 28px;">
+          <article class="card use-case-card">
+            <h3>Repairs, trim &amp; rush fixes</h3>
+            <h4>What it does</h4>
+            <ul class="list">
+              <li>Fast grab, clean squeeze-out.</li>
+              <li>Keeps the bench moving.</li>
+            </ul>
           </article>
-          <article class="card problem-card">
-            <h3>Mess Slows Finishing</h3>
-            <p>Squeeze-out and poor control add cleanup, sanding, and bench time.</p>
+          <article class="card use-case-card">
+            <h3>Structural glue-ups &amp; tough joints</h3>
+            <h4>What it does</h4>
+            <ul class="list">
+              <li>Strength and gap tolerance over instant tack.</li>
+              <li>Open time to clamp square.</li>
+            </ul>
           </article>
-          <article class="card problem-card">
-            <h3>Wrong Cure Time Disrupts Flow</h3>
-            <p>Pick the right hold time—instant or open—so production stays moving.</p>
+          <article class="card use-case-card">
+            <h3>Panels, cases &amp; line production</h3>
+            <h4>What it does</h4>
+            <ul class="list">
+              <li>Even coverage on big areas.</li>
+              <li>Repeatable run to run.</li>
+            </ul>
           </article>
         </div>
       </div>
@@ -792,7 +836,7 @@
               <li>Ideal for high-throughput work</li>
             </ul>
             <div class="btn-row">
-              <a class="btn btn-primary" href="#products">Shop This Solution</a>
+              <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
             </div>
           </article>
 
@@ -807,7 +851,7 @@
               <li>Better when instant set isn't ideal</li>
             </ul>
             <div class="btn-row">
-              <a class="btn btn-primary" href="#products">Shop This Solution</a>
+              <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
             </div>
           </article>
 
@@ -822,7 +866,7 @@
               <li>Repeatable, consistent results</li>
             </ul>
             <div class="btn-row">
-              <a class="btn btn-primary" href="#products">Shop This Solution</a>
+              <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
             </div>
           </article>
         </div>
@@ -855,74 +899,30 @@
       </div>
     </section>
 
-    <section class="section" id="products">
-      <div class="container">
-        <div class="eyebrow"><span>Product Collection</span></div>
-        <h2>Curated Solutions for Woodworking Shops</h2>
-        <p class="small-muted" style="max-width: 72ch;">
-          Three picks mapped to fast assembly, structural strength, and large-surface bonding—no long catalog.
-        </p>
-
-        <div class="product-grid">
-          <article class="card product-card">
-            <div class="pill-row">
-              <span class="pill">Fast Set</span>
-              <span class="pill">Quick Repairs</span>
-            </div>
-            <div>
-              <h3>Fast Set Wood Bond Kit</h3>
-              <p>For trim, quick repairs, and fast CA/activator holds.</p>
-            </div>
-            <div class="btn-row"><a class="btn btn-primary" href="#products">Shop Now</a></div>
-          </article>
-
-          <article class="card product-card">
-            <div class="pill-row">
-              <span class="pill">High Strength</span>
-              <span class="pill">Gap Filling</span>
-            </div>
-            <div>
-              <h3>Structural Join Epoxy System</h3>
-              <p>For joints where strength matters more than instant set.</p>
-            </div>
-            <div class="btn-row"><a class="btn btn-primary" href="#products">Shop Now</a></div>
-          </article>
-
-          <article class="card product-card">
-            <div class="pill-row">
-              <span class="pill">Large Surfaces</span>
-              <span class="pill">Cabinet Panels</span>
-            </div>
-            <div>
-              <h3>Cabinet Panel PUR Solution</h3>
-              <p>For panels and large bonds where coverage matters.</p>
-            </div>
-            <div class="btn-row"><a class="btn btn-primary" href="#products">Shop Now</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="section workflow">
       <div class="container">
-        <div class="eyebrow"><span>Still Deciding?</span></div>
-        <h2>Still Not Sure? Contact Us Directly</h2>
-        <p class="small-muted" style="max-width: 72ch;">
-          Our team can help you match the right adhesive to your materials, workflow, and finish schedule.
-        </p>
-        <div class="cta-wrap">
-          <article class="step">
-            <div class="step-num" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">
-                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-1.38C9.57 21.5 1.5 13.43 1.5 4.5Z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <h3>Prefer a Phone Call?</h3>
-            <p>Tell us about your application and production needs—we will point you in the right direction.</p>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="tel:+18005550199" aria-label="Call us at (800) 555-0199">Call (800) 555-0199</a>
-            </div>
-          </article>
+        <div class="workflow-layout">
+          <div class="workflow-copy">
+            <div class="eyebrow"><span>Still Deciding?</span></div>
+            <h2>Still Not Sure? Contact Us Directly</h2>
+            <p class="small-muted">
+              Our team can help you match the right adhesive to your materials, workflow, and finish schedule.
+            </p>
+          </div>
+          <div class="cta-wrap">
+            <article class="step">
+              <div class="step-num" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                  <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-1.38C9.57 21.5 1.5 13.43 1.5 4.5Z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3>Prefer a Phone Call?</h3>
+              <p>Tell us about your application and production needs—we will point you in the right direction.</p>
+              <div class="btn-row">
+                <a class="btn btn-primary" href="tel:+18005550199" aria-label="Call us at (800) 555-0199">Call (800) 555-0199</a>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -997,7 +997,7 @@
             </button>
             <div class="faq-a">
               <p>
-                Yes. Production-oriented options are in the product collection for regular reorders. Ask your rep about recurring supply if needed.
+                Yes. Production-oriented options are available for regular reorders. Ask your rep about recurring supply if needed.
               </p>
             </div>
           </div>
@@ -1008,7 +1008,7 @@
             </button>
             <div class="faq-a">
               <p>
-                Narrow by workflow in the solutions section, then match a product card. For edge cases (substrates or environment), contact CEC with your details.
+                Narrow by workflow in the solutions section, then pick SKUs with your rep. For edge cases (substrates or environment), contact CEC with your details.
               </p>
             </div>
           </div>
