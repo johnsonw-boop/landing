@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Woodworking & Cabinetry Adhesive Solutions | CEC</title>
   <style>
     :root {
@@ -24,13 +24,20 @@
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
     body {
       margin: 0;
       font-family: "Fira Sans", Arial, sans-serif;
       color: var(--text);
       background: var(--bg);
       line-height: 1.5;
+      overflow-x: hidden;
+      /* Notch / home-indicator safe area (iOS) */
+      padding-left: env(safe-area-inset-left, 0);
+      padding-right: env(safe-area-inset-right, 0);
     }
 
     h1, h2, h3, h4, .futura {
@@ -63,6 +70,7 @@
     .container {
       width: min(calc(100% - 32px), var(--max));
       margin: 0 auto;
+      min-width: 0;
     }
 
     .section {
@@ -105,6 +113,7 @@
       transition: 0.25s ease;
       border: 2px solid transparent;
       cursor: pointer;
+      touch-action: manipulation;
     }
 
     .btn-primary {
@@ -112,7 +121,9 @@
       color: white;
       box-shadow: var(--shadow-sm);
     }
-    .btn-primary:hover { transform: translate(-2px, -2px); }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover { transform: translate(-2px, -2px); }
+    }
 
     .btn-secondary {
       background: transparent;
@@ -152,6 +163,11 @@
       grid-template-columns: minmax(0, 1fr) minmax(260px, min(46vw, 500px));
       gap: clamp(32px, 5vw, 52px);
       align-items: center;
+      min-width: 0;
+    }
+
+    .hero-grid > * {
+      min-width: 0;
     }
 
     .hero-text {
@@ -423,6 +439,8 @@
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
+      min-width: 0;
+      overscroll-behavior-x: contain;
     }
 
     .choice-carousel-track {
@@ -443,6 +461,7 @@
       z-index: 2;
       width: 44px;
       height: 44px;
+      touch-action: manipulation;
       padding: 0;
       border-radius: 50%;
       border: 1px solid var(--line);
@@ -476,9 +495,19 @@
     }
 
     @media (max-width: 880px) {
+      .choice-carousel-viewport {
+        scroll-snap-type: x mandatory;
+      }
+
       .choice-carousel .choice-card {
-        flex: 0 0 calc(100% - 0px);
+        flex: 0 0 100%;
         max-width: 100%;
+        scroll-snap-align: start;
+      }
+
+      /* Full-width cards: buttons sit on top of content; use swipe / scroll-snap instead */
+      .choice-carousel-arrow {
+        display: none;
       }
     }
 
@@ -512,6 +541,11 @@
       grid-template-columns: 0.92fr 1.08fr;
       gap: 28px;
       align-items: center;
+      min-width: 0;
+    }
+
+    .split > * {
+      min-width: 0;
     }
 
     .video-placeholder {
@@ -658,10 +692,12 @@
       transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
     }
 
-    .trust-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(158,215,242,0.35);
-      background: rgba(255,255,255,0.075);
+    @media (hover: hover) and (pointer: fine) {
+      .trust-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(158,215,242,0.35);
+        background: rgba(255,255,255,0.075);
+      }
     }
 
     .trust-card h3 {
@@ -726,6 +762,8 @@
       justify-content: space-between;
       gap: 14px;
       align-items: center;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .faq-q span:last-child {
@@ -806,6 +844,68 @@
       .btn-row { flex-direction: column; align-items: stretch; }
       .btn { width: 100%; }
       .section { padding: 56px 0; }
+
+      .card {
+        padding: 20px;
+      }
+
+      .choice-top {
+        margin: -20px -20px 14px;
+        padding: 26px 20px 12px;
+      }
+
+      .video-placeholder {
+        min-height: 260px;
+      }
+
+      .faq-q {
+        padding: 18px 18px;
+        font-size: 0.98rem;
+        align-items: flex-start;
+      }
+
+      .faq-a {
+        padding: 0 18px 18px;
+      }
+
+      .faq-help {
+        text-align: left;
+      }
+
+      h1, h2 {
+        overflow-wrap: break-word;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: min(calc(100% - 20px), var(--max));
+      }
+
+      .hero {
+        padding: clamp(28px, 8vw, 48px) 0 clamp(36px, 9vw, 56px);
+      }
+
+      .hero h1 {
+        max-width: none;
+      }
+
+      .section {
+        padding: 44px 0;
+      }
+
+      .step {
+        padding: 22px 18px;
+      }
+
+      .trust-card {
+        padding: 18px;
+      }
+
+      .eyebrow {
+        font-size: 0.72rem;
+        padding: 7px 10px;
+      }
     }
   </style>
   <script>
@@ -1093,7 +1193,7 @@
     <section class="section trust-band">
       <div class="container">
         <div class="eyebrow"><span>Built for Production</span></div>
-        <h2>Why Shops Trust a System Approach</h2>
+        <h2>Why Shops Trust a CEC CORP Approach</h2>
         <div class="trust-grid">
           <article class="trust-card">
             <div class="trust-icon" aria-hidden="true">
