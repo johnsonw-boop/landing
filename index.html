@@ -310,8 +310,20 @@
     .small-muted,
     .faq-item p,
     .step p,
+    .workflow .step .step-points,
     .trust-card p {
       color: var(--muted);
+    }
+
+    .workflow .step .step-points {
+      margin: 0;
+      padding-left: 1.2em;
+      list-style-position: outside;
+    }
+
+    .workflow .step .step-points li {
+      margin: 0;
+      line-height: 1.5;
     }
 
     .choice-card {
@@ -391,6 +403,86 @@
     .choice-card .list {
       margin-top: 0;
       gap: 8px;
+    }
+
+    .solutions-intro {
+      margin-bottom: 26px;
+      max-width: min(100%, 70rem);
+    }
+
+    .choice-carousel {
+      position: relative;
+      margin-top: 28px;
+      padding: 0 52px;
+    }
+
+    .choice-carousel-viewport {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .choice-carousel-track {
+      display: flex;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .choice-carousel .choice-card {
+      flex: 0 0 calc((100% - 44px) / 3);
+      min-width: 0;
+    }
+
+    .choice-carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--secondary);
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      place-items: center;
+      transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .choice-carousel-arrow:hover:not(:disabled) {
+      border-color: rgba(23, 147, 209, 0.35);
+      background: rgba(23, 147, 209, 0.06);
+    }
+
+    .choice-carousel-arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .choice-carousel-prev {
+      left: 0;
+    }
+
+    .choice-carousel-next {
+      right: 0;
+    }
+
+    @media (max-width: 880px) {
+      .choice-carousel {
+        padding: 0 44px;
+      }
+
+      .choice-carousel .choice-card {
+        flex: 0 0 calc(100% - 0px);
+        max-width: 100%;
+      }
     }
 
     .list {
@@ -735,6 +827,44 @@
           }
         });
       });
+
+      var choiceViewport = document.getElementById("choiceCarouselViewport");
+      var choicePrev = document.getElementById("choiceCarouselPrev");
+      var choiceNext = document.getElementById("choiceCarouselNext");
+      if (choiceViewport && choicePrev && choiceNext) {
+        var gapPx = 22;
+        function choiceCardStep() {
+          var card = choiceViewport.querySelector(".choice-card");
+          return card ? card.getBoundingClientRect().width + gapPx : 0;
+        }
+        function choiceUpdateArrows() {
+          var max = choiceViewport.scrollWidth - choiceViewport.clientWidth;
+          var sl = choiceViewport.scrollLeft;
+          choicePrev.disabled = sl <= 2;
+          choiceNext.disabled = max <= 2 || sl >= max - 2;
+        }
+        var scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+        choicePrev.addEventListener("click", function () {
+          choiceViewport.scrollBy({ left: -choiceCardStep(), behavior: scrollBehavior });
+        });
+        choiceNext.addEventListener("click", function () {
+          choiceViewport.scrollBy({ left: choiceCardStep(), behavior: scrollBehavior });
+        });
+        choiceViewport.addEventListener("scroll", choiceUpdateArrows);
+        window.addEventListener("resize", function () {
+          choiceUpdateArrows();
+        });
+        choiceViewport.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            choiceViewport.scrollBy({ left: -choiceCardStep(), behavior: scrollBehavior });
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            choiceViewport.scrollBy({ left: choiceCardStep(), behavior: scrollBehavior });
+          }
+        });
+        requestAnimationFrame(choiceUpdateArrows);
+      }
     });
   </script>
 </head>
@@ -819,55 +949,89 @@
       <div class="container">
         <div class="eyebrow"><span>Choose by Workflow</span></div>
         <h2>Pick the Right Adhesive for the Job</h2>
-        <p class="small-muted" style="max-width: 72ch; margin-bottom: 26px;">
+        <p class="small-muted solutions-intro">
           Guide buyers to the right adhesive family for how they build, repair, or assemble.
         </p>
 
-        <div class="grid-3 grid-3-stretch">
-          <article class="card choice-card">
-            <div class="choice-top">
-              <h3>CA Glue + Activator</h3>
-            </div>
-            <div class="choice-thumb" aria-hidden="true"><div></div></div>
-            <ul class="list">
-              <li>Fast repairs and small bond lines</li>
-              <li>Minimal clamping time</li>
-              <li>Ideal for high-throughput work</li>
-            </ul>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
-            </div>
-          </article>
+        <div class="choice-carousel" id="choiceCarousel">
+          <button type="button" class="choice-carousel-arrow choice-carousel-prev" id="choiceCarouselPrev" aria-label="Previous options" disabled>&#8249;</button>
+          <div class="choice-carousel-viewport" id="choiceCarouselViewport" tabindex="0" role="region" aria-label="Adhesive workflow options">
+            <div class="choice-carousel-track">
+              <article class="card choice-card">
+                <div class="choice-top">
+                  <h3>CA Glue + Activator</h3>
+                </div>
+                <div class="choice-thumb" aria-hidden="true"><div></div></div>
+                <ul class="list">
+                  <li>Fast repairs and small bond lines</li>
+                  <li>Minimal clamping time</li>
+                  <li>Ideal for high-throughput work</li>
+                </ul>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                </div>
+              </article>
 
-          <article class="card choice-card">
-            <div class="choice-top">
-              <h3>Epoxy Systems</h3>
-            </div>
-            <div class="choice-thumb" aria-hidden="true"><div></div></div>
-            <ul class="list">
-              <li>Strong for demanding joints</li>
-              <li>Great for imperfect surfaces</li>
-              <li>Better when instant set isn't ideal</li>
-            </ul>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
-            </div>
-          </article>
+              <article class="card choice-card">
+                <div class="choice-top">
+                  <h3>Epoxy Systems</h3>
+                </div>
+                <div class="choice-thumb" aria-hidden="true"><div></div></div>
+                <ul class="list">
+                  <li>Strong for demanding joints</li>
+                  <li>Great for imperfect surfaces</li>
+                  <li>Better when instant set isn't ideal</li>
+                </ul>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                </div>
+              </article>
 
-          <article class="card choice-card">
-            <div class="choice-top">
-              <h3>PUR Adhesives</h3>
+              <article class="card choice-card">
+                <div class="choice-top">
+                  <h3>PUR Adhesives</h3>
+                </div>
+                <div class="choice-thumb" aria-hidden="true"><div></div></div>
+                <ul class="list">
+                  <li>For large surface bonds</li>
+                  <li>Workflow-driven system choice</li>
+                  <li>Repeatable, consistent results</li>
+                </ul>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                </div>
+              </article>
+
+              <article class="card choice-card">
+                <div class="choice-top">
+                  <h3>PVA Wood Glue</h3>
+                </div>
+                <div class="choice-thumb" aria-hidden="true"><div></div></div>
+                <ul class="list">
+                  <li>Porous wood assemblies </li>
+                  <li>Longer open time for careful clamping</li>
+                  <li>Everyday cabinet and millwork joints</li>
+                </ul>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                </div>
+              </article>
+
+              <article class="card choice-card">
+                <div class="choice-top">
+                  <h3>Contact / Spray Adhesives</h3>
+                </div>
+                <div class="choice-thumb" aria-hidden="true"><div></div></div>
+                <ul class="list">
+                  <li>Laminate, veneer, and wide surfaces—roll or spray for fast, even tack.</li>
+                </ul>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                </div>
+              </article>
             </div>
-            <div class="choice-thumb" aria-hidden="true"><div></div></div>
-            <ul class="list">
-              <li>For large surface bonds</li>
-              <li>Workflow-driven system choice</li>
-              <li>Repeatable, consistent results</li>
-            </ul>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
-            </div>
-          </article>
+          </div>
+          <button type="button" class="choice-carousel-arrow choice-carousel-next" id="choiceCarouselNext" aria-label="Next options">&#8250;</button>
         </div>
       </div>
     </section>
@@ -905,7 +1069,7 @@
             <div class="eyebrow"><span>Still Deciding?</span></div>
             <h2>Still Not Sure? Contact Us Directly</h2>
             <p class="small-muted">
-              Our team can help you match the right adhesive to your materials, workflow, and finish schedule.
+              Our team can help you match the right adhesive to your materials, workflow, and finish schedule—by phone or email, whichever works for you.
             </p>
           </div>
           <div class="cta-wrap">
@@ -915,10 +1079,13 @@
                   <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-1.38C9.57 21.5 1.5 13.43 1.5 4.5Z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h3>Prefer a Phone Call?</h3>
-              <p>Tell us about your application and production needs—we will point you in the right direction.</p>
+              <h3>Talk with our team</h3>
+              <ul class="step-points">
+                <li>Share your materials and workflow—we’ll recommend the right adhesive (phone or email).</li>
+              </ul>
               <div class="btn-row">
                 <a class="btn btn-primary" href="tel:+18005550199" aria-label="Call us at (800) 555-0199">Call (800) 555-0199</a>
+                <a class="btn btn-secondary" href="mailto:support@ceccorp.com" aria-label="Email support at support@ceccorp.com">Email support</a>
               </div>
             </article>
           </div>
