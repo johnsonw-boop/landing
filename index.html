@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Woodworking & Cabinetry Adhesive Solutions | CEC</title>
+  <title>Acme Flow — Application Landing Template</title>
   <style>
     :root {
       --primary: #1793D1;
@@ -92,6 +92,7 @@
       font-size: 0.76rem;
       margin-bottom: 18px;
       transform: skewX(-14deg);
+      box-shadow: 4px 4px 0 rgba(var(--secondary-rgb), 0.14);
     }
     .eyebrow span { display: inline-block; transform: skewX(14deg); }
 
@@ -160,8 +161,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, min(46vw, 500px));
-      gap: clamp(32px, 5vw, 52px);
+      grid-template-columns: minmax(0, 1fr) minmax(220px, min(34vw, 400px));
+      gap: clamp(24px, 3.5vw, 40px);
       align-items: center;
       min-width: 0;
     }
@@ -174,7 +175,7 @@
       display: flex;
       flex-direction: column;
       gap: clamp(18px, 2.5vw, 24px);
-      max-width: 36rem;
+      max-width: min(48rem, 100%);
     }
 
     .hero .eyebrow {
@@ -188,13 +189,13 @@
       line-height: 1.1;
       letter-spacing: -0.02em;
       margin: 0;
-      max-width: 18ch;
+      max-width: min(54ch, 100%);
     }
 
     .hero-lead {
       font-size: 1.05rem;
       color: var(--muted);
-      max-width: 38ch;
+      max-width: min(58ch, 100%);
       margin: 0;
       line-height: 1.45;
     }
@@ -205,7 +206,7 @@
       gap: 8px;
       margin-top: 2px;
       align-items: flex-start;
-      max-width: 540px;
+      max-width: min(48rem, 100%);
     }
 
     .hero-point {
@@ -237,7 +238,7 @@
 
     .hero-photo {
       width: 100%;
-      max-width: 500px;
+      max-width: 400px;
     }
 
     .hero-photo-inner {
@@ -674,6 +675,7 @@
       background: rgba(255,255,255,0.08);
       color: #9ed7f2;
       border-color: rgba(255,255,255,0.08);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
     }
 
     .trust-grid {
@@ -971,29 +973,29 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <div class="hero-text">
-            <div class="eyebrow"><span>Woodworking &amp; Cabinetry</span></div>
-            <h1>Stronger joints.<br />Invisible glue lines.</h1>
-            <p class="hero-lead">Adhesives for casework, face frames, and millwork—where clamp time and squeeze-out matter.</p>
+            <div class="eyebrow"><span>Product overview</span></div>
+            <h1>Ship faster.<br />Stay in sync.</h1>
+            <p class="hero-lead">A placeholder headline for your app—onboarding, collaboration, and reporting in one place. Swap this block for your real value prop.</p>
             <div class="hero-points">
               <div class="hero-point">
-                <strong>Reduced clamping time</strong>
+                <strong>Quick setup</strong>
               </div>
               <div class="hero-point">
-                <strong>Minimal squeeze-out</strong>
+                <strong>Team-ready</strong>
               </div>
               <div class="hero-point">
-                <strong>Tighter joints</strong>
+                <strong>Actionable insights</strong>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="hero-visual-wrap" aria-label="Woodworking application imagery">
+        <div class="hero-visual-wrap" aria-label="Hero image placeholder">
           <div class="hero-photo">
             <div class="hero-photo-inner">
               <img
-                src="images/hero-woodshop.png"
-                alt="Custom carved wooden sign reading Grandpa's Wood Shop, leaning against a tree outdoors"
+                src="images/hero-placeholder.png"
+                alt="Placeholder hero image: replace with product screenshot or illustration"
                 width="1200"
                 height="675"
                 loading="eager"
@@ -1011,31 +1013,31 @@
       <div class="container">
         <div class="eyebrow"><span>Use cases</span></div>
         <p class="small-muted use-cases-intro">
-          Our product line is built for woodworking and cabinetry applications—from bench repairs to production runs. Each card starts from a real situation, then what that bond must deliver, so you can line up the right CEC solution.
+          Dummy scenarios you can replace. Each card is a pattern: who it’s for, then what the product should deliver, so visitors can self-select before they hit pricing or signup.
         </p>
         <div class="grid-3 grid-3-stretch" style="margin-top: 28px;">
           <article class="card use-case-card">
-            <h3>Repairs, trim &amp; rush fixes</h3>
+            <h3>Day-one wins &amp; quick fixes</h3>
             <h4>What it does</h4>
             <ul class="list">
-              <li>Fast grab, clean squeeze-out.</li>
-              <li>Keeps the bench moving.</li>
+              <li>Fast time-to-value for new users.</li>
+              <li>Keeps momentum on small teams.</li>
             </ul>
           </article>
           <article class="card use-case-card">
-            <h3>Structural glue-ups &amp; tough joints</h3>
+            <h3>Cross-team workflows</h3>
             <h4>What it does</h4>
             <ul class="list">
-              <li>Strength and gap tolerance over instant tack.</li>
-              <li>Open time to clamp square.</li>
+              <li>Shared context across roles and time zones.</li>
+              <li>Room to align before deadlines.</li>
             </ul>
           </article>
           <article class="card use-case-card">
-            <h3>Panels, cases &amp; line production</h3>
+            <h3>Scale &amp; repeatability</h3>
             <h4>What it does</h4>
             <ul class="list">
-              <li>Even coverage on big areas.</li>
-              <li>Repeatable run to run.</li>
+              <li>Consistent process across many projects.</li>
+              <li>Reporting that holds up at volume.</li>
             </ul>
           </article>
         </div>
@@ -1044,86 +1046,86 @@
 
     <section class="section" id="solutions">
       <div class="container">
-        <div class="eyebrow"><span>Choose by Workflow</span></div>
-        <h2>Pick the Right Adhesive for the Job</h2>
+        <div class="eyebrow"><span>Choose by need</span></div>
+        <h2>Pick the Right Module</h2>
         <p class="small-muted solutions-intro">
-          Guide buyers to the right adhesive family for how they build, repair, or assemble.
+          Placeholder pillars—rename to match your product areas (plans, add-ons, or feature families).
         </p>
 
         <div class="choice-carousel" id="choiceCarousel">
           <button type="button" class="choice-carousel-arrow choice-carousel-prev" id="choiceCarouselPrev" aria-label="Previous options" disabled>&#8249;</button>
-          <div class="choice-carousel-viewport" id="choiceCarouselViewport" tabindex="0" role="region" aria-label="Adhesive workflow options">
+          <div class="choice-carousel-viewport" id="choiceCarouselViewport" tabindex="0" role="region" aria-label="Product option cards">
             <div class="choice-carousel-track">
               <article class="card choice-card">
                 <div class="choice-top">
-                  <h3>CA Glue + Activator</h3>
+                  <h3>Self-serve onboarding</h3>
                 </div>
                 <div class="choice-thumb" aria-hidden="true"><div></div></div>
                 <ul class="list">
-                  <li>Fast repairs and small bond lines</li>
-                  <li>Minimal clamping time</li>
-                  <li>Ideal for high-throughput work</li>
+                  <li>Guided setup for new accounts</li>
+                  <li>Short path to first success</li>
+                  <li>Ideal for individuals and pilots</li>
                 </ul>
                 <div class="btn-row">
-                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                  <a class="btn btn-primary" href="#solutions">Learn more</a>
                 </div>
               </article>
 
               <article class="card choice-card">
                 <div class="choice-top">
-                  <h3>Epoxy Systems</h3>
+                  <h3>Team workspace</h3>
                 </div>
                 <div class="choice-thumb" aria-hidden="true"><div></div></div>
                 <ul class="list">
-                  <li>Strong for demanding joints</li>
-                  <li>Great for imperfect surfaces</li>
-                  <li>Better when instant set isn't ideal</li>
+                  <li>Shared projects and permissions</li>
+                  <li>Comments and handoffs in one place</li>
+                  <li>Built for ongoing collaboration</li>
                 </ul>
                 <div class="btn-row">
-                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                  <a class="btn btn-primary" href="#solutions">Learn more</a>
                 </div>
               </article>
 
               <article class="card choice-card">
                 <div class="choice-top">
-                  <h3>PUR Adhesives</h3>
+                  <h3>Automation</h3>
                 </div>
                 <div class="choice-thumb" aria-hidden="true"><div></div></div>
                 <ul class="list">
-                  <li>For large surface bonds</li>
-                  <li>Workflow-driven system choice</li>
-                  <li>Repeatable, consistent results</li>
+                  <li>Rules and triggers you can tune</li>
+                  <li>Fewer manual status updates</li>
+                  <li>Consistent outcomes at scale</li>
                 </ul>
                 <div class="btn-row">
-                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                  <a class="btn btn-primary" href="#solutions">Learn more</a>
                 </div>
               </article>
 
               <article class="card choice-card">
                 <div class="choice-top">
-                  <h3>PVA Wood Glue</h3>
+                  <h3>Analytics &amp; reporting</h3>
                 </div>
                 <div class="choice-thumb" aria-hidden="true"><div></div></div>
                 <ul class="list">
-                  <li>Porous wood assemblies </li>
-                  <li>Longer open time for careful clamping</li>
-                  <li>Everyday cabinet and millwork joints</li>
+                  <li>Dashboards for leads and managers</li>
+                  <li>Export-friendly summaries</li>
+                  <li>Dummy metrics until you wire real data</li>
                 </ul>
                 <div class="btn-row">
-                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                  <a class="btn btn-primary" href="#solutions">Learn more</a>
                 </div>
               </article>
 
               <article class="card choice-card">
                 <div class="choice-top">
-                  <h3>Contact / Spray Adhesives</h3>
+                  <h3>Integrations &amp; API</h3>
                 </div>
                 <div class="choice-thumb" aria-hidden="true"><div></div></div>
                 <ul class="list">
-                  <li>Laminate, veneer, and wide surfaces—roll or spray for fast, even tack.</li>
+                  <li>Connect Slack, email, or your stack—swap names to match your roadmap.</li>
                 </ul>
                 <div class="btn-row">
-                  <a class="btn btn-primary" href="#solutions">Shop This Solution</a>
+                  <a class="btn btn-primary" href="#solutions">Learn more</a>
                 </div>
               </article>
             </div>
@@ -1136,15 +1138,15 @@
     <section class="section">
       <div class="container split">
         <div>
-          <div class="eyebrow"><span>Use Case Demo</span></div>
-          <h2>Show the Journey, Not Just the SKU</h2>
+          <div class="eyebrow"><span>Product demo</span></div>
+          <h2>Show the journey, not just the feature list</h2>
           <p class="small-muted">
-            Placeholder for an application video or process animation. Until then, it's a visual break for guided buying.
+            Placeholder for a product tour or screen recording. Until then, it’s a visual break between sections.
           </p>
           <ul class="list">
-            <li>Swap in a short workshop demo</li>
-            <li>Show prep, apply, clamp, then finish</li>
-            <li>Gives paid traffic a quick trust signal</li>
+            <li>Drop in a 60–90 second walkthrough</li>
+            <li>Show signup → core task → outcome</li>
+            <li>Helps paid traffic validate fit quickly</li>
           </ul>
         </div>
         <div class="video-placeholder">
@@ -1166,7 +1168,7 @@
             <div class="eyebrow"><span>Still Deciding?</span></div>
             <h2>Still Not Sure? Contact Us Directly</h2>
             <p class="small-muted">
-              Our team can help you match the right adhesive to your materials, workflow, and finish schedule—by phone or email, whichever works for you.
+              Dummy contact block—replace with your real sales or success story. We’ll help map your workflow and rollout—by phone or email, whichever works for you.
             </p>
           </div>
           <div class="cta-wrap">
@@ -1178,11 +1180,11 @@
               </div>
               <h3>Talk with our team</h3>
               <ul class="step-points">
-                <li>Share your materials and workflow—we’ll recommend the right adhesive (phone or email).</li>
+                <li>Share your goals and stack—we’ll suggest a starting plan or pilot (phone or email).</li>
               </ul>
               <div class="btn-row">
                 <a class="btn btn-primary" href="tel:+18005550199" aria-label="Call us at (800) 555-0199">Call (800) 555-0199</a>
-                <a class="btn btn-secondary" href="mailto:support@ceccorp.com" aria-label="Email support at support@ceccorp.com">Email support</a>
+                <a class="btn btn-secondary" href="mailto:hello@example.com" aria-label="Email hello at example.com">Email hello@example.com</a>
               </div>
             </article>
           </div>
@@ -1192,8 +1194,8 @@
 
     <section class="section trust-band">
       <div class="container">
-        <div class="eyebrow"><span>Built for Production</span></div>
-        <h2>Why Shops Trust a CEC CORP Approach</h2>
+        <div class="eyebrow"><span>Trust &amp; proof</span></div>
+        <h2>Why teams use a template like this</h2>
         <div class="trust-grid">
           <article class="trust-card">
             <div class="trust-icon" aria-hidden="true">
@@ -1201,23 +1203,23 @@
                 <path d="M12 2c-1.8 3.2-5 5.5-5 10.5 0 2.2.8 4.1 2.2 5.5H11v-1.2c0-2.3 1.9-4.1 4.2-4.1 2.2 0 4 1.7 4.1 3.9l.1 1.4h1.6c1.4-1.4 2.2-3.3 2.2-5.5 0-5-3.2-7.3-5-10.5z" />
               </svg>
             </div>
-            <h3>Made In Canada</h3>
-            <p>Manufactured in Canada—quality you can trust.</p>
+            <h3>Global-ready</h3>
+            <p>Placeholder: add your regions, data residency, or certifications here.</p>
           </article>
           <article class="trust-card">
             <div class="trust-icon" aria-hidden="true">&#9670;</div>
-            <h3>Clear Choices</h3>
-            <p>Workflow-first guidance cuts SKU hunting and speeds up the decision.</p>
+            <h3>Clear choices</h3>
+            <p>Section structure nudges visitors from problem → modules → proof → FAQ.</p>
           </article>
           <article class="trust-card">
             <div class="trust-icon" aria-hidden="true">&#x2699;&#xFE0E;</div>
-            <h3>Shop-Ready</h3>
-            <p>Bench-ready for panels, trim, and repairs—built for shop pace.</p>
+            <h3>Production-minded</h3>
+            <p>Copy blocks are sized for real headlines—swap text, keep the layout.</p>
           </article>
           <article class="trust-card">
             <div class="trust-icon" aria-hidden="true">&#8594;</div>
-            <h3>Room to Scale</h3>
-            <p>Start small, scale to volume as production ramps.</p>
+            <h3>Room to scale</h3>
+            <p>Start with a pilot, add seats and features as adoption grows.</p>
           </article>
         </div>
       </div>
@@ -1228,28 +1230,28 @@
         <div class="eyebrow"><span>FAQ</span></div>
         <h2>Common Questions</h2>
         <p class="small-muted" style="max-width: 72ch; margin-bottom: 0;">
-          Answers for choosing adhesives for woodworking and cabinetry. Tap to expand.
+          Generic FAQ patterns—replace with objections you hear from real prospects. Tap to expand.
         </p>
         <div class="faq-wrap">
           <div class="faq-item">
             <button type="button" class="faq-q" aria-expanded="false">
-              <span>How do I choose between CA glue, epoxy, and PUR?</span>
+              <span>How do I pick between modules or plans?</span>
               <span aria-hidden="true">+</span>
             </button>
             <div class="faq-a">
               <p>
-                Match by bond size, open time, and strength. CA is best for small areas and fast hold; epoxy for gap filling and high-strength joints; PUR for larger surfaces and panels. Not sure? Start with the workflow cards above.
+                Start with your team size and must-have integrations. Smaller groups often begin with self-serve onboarding; growing orgs add team workspace and automation. Not sure? Use the cards above as a conversation guide.
               </p>
             </div>
           </div>
           <div class="faq-item">
             <button type="button" class="faq-q" aria-expanded="false">
-              <span>Will these products work with my finishes?</span>
+              <span>Does it work with our existing tools?</span>
               <span aria-hidden="true">+</span>
             </button>
             <div class="faq-a">
               <p>
-                Control squeeze-out and follow cure guidance to protect stain, paint, and clear coats. Test on scrap when pairing a new adhesive with your finish system.
+                List your real integrations on the live site. This template assumes API and common SaaS connectors—validate against your roadmap before launch.
               </p>
             </div>
           </div>
@@ -1271,7 +1273,7 @@
             </button>
             <div class="faq-a">
               <p>
-                Narrow by workflow in the solutions section, then pick SKUs with your rep. For edge cases (substrates or environment), contact CEC with your details.
+                Use the solutions section to narrow options, then confirm pricing and rollout with sales. For unusual requirements (compliance, data residency, custom SSO), contact us with your constraints.
               </p>
             </div>
           </div>
